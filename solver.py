@@ -61,8 +61,8 @@ class Solver():
             nodesToAdd = nodeToExpand.make_child_nodes()
             for node in nodesToAdd:
                 self.binary_insert(node)
-        raise StopIteration
-        print('\nNo (more) solutions found, exiting program')
+        # raise StopIteration
+        # print('\nNo (more) solutions found, exiting program')
 
 
 
