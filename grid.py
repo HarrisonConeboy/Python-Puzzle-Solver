@@ -4,11 +4,11 @@ class Grid():
 
     # We must initialize the grid with the matrix representing empty and occupied spaces, the counter to represent
     # new additions to the grid, a list of shapes provided and an insertion point
-    def __init__(self, mat, shapes, counter=1, insert=(0,0)):
+    def __init__(self, mat, shapes, counter=1, volume=0, insert=(0,0)):
         self.mat = mat
         self.counter = counter
         self.shapes = [shape.produce_symmetries() if type(shape)==Shape else shape for shape in shapes]
-        # self.shapes = self.calc_shapes(shapes)
+        self.volume = volume if volume else len(mat)*len(mat[0])
         self.suitablePieces = dict()
         self.calc_insert(insert)
 
@@ -118,19 +118,21 @@ class Grid():
             else:
                 new_mat = [row[:] for row in self.mat]
                 shapes = list(self.shapes)
+                newVolume = self.volume-shape.volume
                 del shapes[self.suitablePieces[shape]]
                 counter = self.counter + 1
                 for i, row in enumerate(shape.mat):
                     for j, value in enumerate(row):
                         new_mat[self.insert[0]+i][self.insert[1]+j] = self.counter if value == 1 else \
                             new_mat[self.insert[0]+i][self.insert[1]+j]
-                new_grid = Grid(new_mat, shapes, counter, self.insert)
+                new_grid = Grid(new_mat, shapes, counter, newVolume, self.insert)
                 return new_grid
         else:
             print('Shape not suitable to add')
 
 
-
+    def can_solve(self):
+        return self.volume > sum([shape[0].volume for shape in self.shapes])
 
 
 

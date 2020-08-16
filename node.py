@@ -22,7 +22,8 @@ class Node():
 
 
     def calculate_child_score(self, shape):
-        return (1/shape.volume) * (shape.perimeter/(self.calculate_sides_covered(shape)+1)) #+ self.score
+        return (1/shape.volume) * (shape.perimeter/(self.calculate_sides_covered(shape)+1))\
+               + self.grid.volume/(len(self.grid.mat)*len(self.grid.mat[0]))
 
 
     def calculate_sides_covered(self, shape):

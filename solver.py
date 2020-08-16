@@ -43,6 +43,9 @@ class Solver():
         start = timeit.default_timer()
         while(len(self.nodes) > 0):
             nodeToExpand = self.nodes.pop(0)
+            if not nodeToExpand.grid.can_solve():
+                print('great')
+                continue
             if nodeToExpand.finished:
                 # stop = timeit.default_timer()
                 # print(f'It took {stop-start} seconds to find a solution')
@@ -61,7 +64,7 @@ class Solver():
             nodesToAdd = nodeToExpand.make_child_nodes()
             for node in nodesToAdd:
                 self.binary_insert(node)
-        # raise StopIteration
+        raise StopIteration
         # print('\nNo (more) solutions found, exiting program')
 
 
