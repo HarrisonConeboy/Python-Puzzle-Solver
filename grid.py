@@ -132,7 +132,7 @@ class Grid():
 
 
     def can_solve(self):
-        return self.volume > sum([shape[0].volume for shape in self.shapes])
+        return self.volume >= sum([shape[0].volume for shape in self.shapes])
 
 
 
